@@ -16,24 +16,29 @@ async function main() {
   const hour = 60 * 60 * 1000;
 
   const incidentsData = [
-    // Camera 1 Incidents (with overlaps)
+    // Camera 1 Incidents
     { type: 'Unauthorised Access', tsStart: new Date(now.getTime() - 23 * hour), tsEnd: new Date(now.getTime() - 22.5 * hour), thumbnailUrl: '/thumbnails/thumb1.png', cameraId: camera1.id },
     { type: 'Face Recognised', tsStart: new Date(now.getTime() - 15 * hour), tsEnd: new Date(now.getTime() - 14 * hour), thumbnailUrl: '/thumbnails/thumb2.png', cameraId: camera1.id },
     { type: 'Multiple Events', tsStart: new Date(now.getTime() - 14.5 * hour), tsEnd: new Date(now.getTime() - 13.5 * hour), thumbnailUrl: '/thumbnails/thumb3.png', cameraId: camera1.id },
     { type: 'Gun Threat', tsStart: new Date(now.getTime() - 4 * hour), tsEnd: new Date(now.getTime() - 3 * hour), thumbnailUrl: '/thumbnails/thumb4.png', cameraId: camera1.id },
     { type: 'Unauthorised Access', tsStart: new Date(now.getTime() - 4.5 * hour), tsEnd: new Date(now.getTime() - 3.5 * hour), thumbnailUrl: '/thumbnails/thumb5.png', cameraId: camera1.id },
 
-    // Camera 2 Incidents
+    // Camera 2 Incidents 
     { type: 'Unauthorised Access', tsStart: new Date(now.getTime() - 22 * hour), tsEnd: new Date(now.getTime() - 21 * hour), thumbnailUrl: '/thumbnails/thumb1.png', cameraId: camera2.id },
     { type: 'Face Recognised', tsStart: new Date(now.getTime() - 14 * hour), tsEnd: new Date(now.getTime() - 13 * hour), thumbnailUrl: '/thumbnails/thumb2.png', cameraId: camera2.id },
+    { type: 'Multiple Events', tsStart: new Date(now.getTime() - 8.5 * hour), tsEnd: new Date(now.getTime() - 7.5 * hour), thumbnailUrl: '/thumbnails/thumb4.png', cameraId: camera2.id }, // Overlaps with Traffic Congestion
+    { type: 'Gun Threat', tsStart: new Date(now.getTime() - 2 * hour), tsEnd: new Date(now.getTime() - 1 * hour), thumbnailUrl: '/thumbnails/thumb5.png', cameraId: camera2.id },
     
-    // Camera 3 Incidents
-    { type: 'Traffic Congestion', tsStart: new Date(now.getTime() - 16 * hour), tsEnd: new Date(now.getTime() - 15 * hour), thumbnailUrl: '/thumbnails/thumb3.png', cameraId: camera3.id },
-    { type: 'Unauthorised Access', tsStart: new Date(now.getTime() - 10 * hour), tsEnd: new Date(now.getTime() - 9 * hour), thumbnailUrl: '/thumbnails/thumb4.png', cameraId: camera3.id },
+    // Camera 3 Incidents 
+    { type: 'Traffic Congestion', tsStart: new Date(now.getTime() - 16 * hour), tsEnd: new Date(now.getTime() - 15 * hour), thumbnailUrl: '/thumbnails/thumb1.png', cameraId: camera3.id },
+    { type: 'Unauthorised Access', tsStart: new Date(now.getTime() - 10 * hour), tsEnd: new Date(now.getTime() - 9 * hour), thumbnailUrl: '/thumbnails/thumb2.png', cameraId: camera3.id },
+    { type: 'Gun Threat', tsStart: new Date(now.getTime() - 6 * hour), tsEnd: new Date(now.getTime() - 5 * hour), thumbnailUrl: '/thumbnails/thumb3.png', cameraId: camera3.id },
+    { type: 'Face Recognised', tsStart: new Date(now.getTime() - 19 * hour), tsEnd: new Date(now.getTime() - 18 * hour), thumbnailUrl: '/thumbnails/thumb4.png', cameraId: camera3.id },
+    { type: 'Multiple Events', tsStart: new Date(now.getTime() - 24 * hour), tsEnd: new Date(now.getTime() - 23 * hour), thumbnailUrl: '/thumbnails/thumb5.png', cameraId: camera3.id },
   ];
 
   await prisma.incident.createMany({ data: incidentsData });
-  console.log('Seeding finished with original overlapping data.');
+  console.log('Seeding finished: 15 incidents created.');
 }
 
 main().catch((e) => { console.error(e); process.exit(1); }).finally(async () => { await prisma.$disconnect(); });

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
 const thumbFeeds = [
-    { name: 'Camera - 01', src: '/images/thumb2.png' }, 
-    { name: 'Camera - 02', src: '/images/thumb3.png' },
+    { name: 'Camera - 02', src: '/images/thumb2.png' }, 
+    { name: 'Camera - 03', src: '/images/thumb3.png' },
 ];
 
 export default function IncidentPlayer() {
