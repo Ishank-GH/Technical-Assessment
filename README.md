@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SecureSight Dashboard - Technical Assessment
 
-## Getting Started
+This project was created to fulfill the mandatory and optional timeline requirements of the Fullstack Developer Intern technical assessment for Instinctive Studio.
 
-First, run the development server:
+### **Live Demo**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[**SecureSight DashBoard**](https://secure-sight-roan.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### **Deployment Instructions**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run this project on your local machine, please follow these steps:
 
-## Learn More
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/Ishank-GH/Technical-Assessment.git
+    cd secure-sight-dashboard
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Set Up Environment Variables**
+    Create a file named `.env.local` in the project root and add your Supabase connection string. The `?pgbouncer=true` parameter is required for compatibility between Supabase's connection pooler and Prisma.
+    ```
+    DATABASE_URL="YOUR_SUPABASE_CONNECTION_STRING?pgbouncer=true"
+    NEXT_PUBLIC_API_URL="http://localhost:3000"
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4.  **Set Up the Database**
+    Run the following commands to create the database schema and populate it with 15 mock incidents.
+    ```bash
+    npx prisma db push
+    npx prisma db seed
+    ```
 
-## Deploy on Vercel
+5.  **Run the Application**
+    ```bash
+    npm run dev
+    ```
+    The application will be available at `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Technical Decisions**
+
+*   **Architecture:** I chose a full-stack approach using the Next.js App Router. This allowed for efficient server-side data fetching for the initial page load and the creation of dedicated API Routes for client-side mutations (like resolving an incident).
+*   **Database & ORM:** I selected Supabase (PostgreSQL) and Prisma as they represent a modern, robust, and scalable backend stack. Prisma's type-safety was particularly valuable for ensuring data integrity between the frontend and backend.
+*   **Styling:** Tailwind CSS was used for its utility-first methodology, which enabled me to rapidly build a custom, pixel-perfect UI that is a high-fidelity match of the provided Figma design without writing custom CSS files.
+*   **Timeline Logic:** For the optional timeline, I implemented an algorithm to process and arrange overlapping incidents into separate visual rows. This ensures the timeline is readable and functional regardless of the dynamic nature of the data.
+
+---
+
+### **If I Had More Time…**
+
+*   **Real-Time Updates:** I would integrate WebSockets or Supabase Realtime to have new incidents appear on the dashboard instantly without needing a page refresh.
+*   **Full Timeline Interactivity:** I would make the timeline's scrubber draggable and have it update the state of the main video player. I would also make the incident pills clickable to jump to that specific event.
+*   **Comprehensive Testing:** I would add unit tests for components using Jest and React Testing Library, and implement end-to-end tests with Cypress to guarantee application stability.
+*   **Authentication:** I would secure the dashboard behind a proper login system, likely using Supabase Auth.
